@@ -20,6 +20,7 @@ export default class Star extends cc.Component {
 
     onCollisionEnter(selfCollider, otherCollider) {
         if (otherCollider.name  === 'star<CircleCollider>') {
+            this.node.parent.getComponent('Game').spawnNewStart();
             this.node.destroy();
         }
     }

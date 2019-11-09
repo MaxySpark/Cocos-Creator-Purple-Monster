@@ -31,9 +31,10 @@ export default class Game extends cc.Component {
     groundY: number;
 
 
-    spanNewStart() {
+    spawnNewStart() {
         let newStar = cc.instantiate(this.starPrefab);
         this.node.addChild(newStar);
+        // newStar.group = 'star';
         newStar.setPosition(this.getNewStarPosition());
     }
 
@@ -50,7 +51,7 @@ export default class Game extends cc.Component {
 
     onLoad () {
         this.groundY = this.ground.y + this.ground.height / 2;
-        this.spanNewStart();
+        this.spawnNewStart();
     }
 
     start () {
