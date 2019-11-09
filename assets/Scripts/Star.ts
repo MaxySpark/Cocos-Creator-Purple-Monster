@@ -11,7 +11,7 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class NewClass extends cc.Component {
+export default class Star extends cc.Component {
 
     @property
     pickRadius: number = 0;

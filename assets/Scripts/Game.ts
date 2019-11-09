@@ -11,7 +11,7 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class NewClass extends cc.Component {
+export default class Game extends cc.Component {
 
     @property(cc.Prefab)
     starPrefab: cc.Prefab = null;
@@ -27,10 +27,31 @@ export default class NewClass extends cc.Component {
 
     @property(cc.Node)
     player: cc.Node = null;
+    
+    groundY: number;
+
+
+    spanNewStart() {
+        let newStar = cc.instantiate(this.starPrefab);
+        this.node.addChild(newStar);
+        newStar.setPosition(this.getNewStarPosition());
+    }
+
+    getNewStarPosition() {
+        let randX = 0;
+        let randY = this.groundY + Math.random() * this.player.getComponent('Player').jumpHeight + 50;
+        let maxX = this.node.width / 2;
+        randX = (Math.random() - 0.5) * 2 * maxX;
+
+        return cc.v2(randX, randY);
+    }
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {}
+    onLoad () {
+        this.groundY = this.ground.y + this.ground.height / 2;
+        this.spanNewStart();
+    }
 
     start () {
 
