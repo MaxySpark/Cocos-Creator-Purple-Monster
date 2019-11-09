@@ -25,7 +25,37 @@ export default class NewClass extends cc.Component {
     @property
     accel: number = 0;
 
+    accLeft: boolean;
+    accRight: boolean;
+    xSpeed = 0;
+
     // LIFE-CYCLE CALLBACKS:
+
+    onKeyUp(event) {
+        switch(event.keyCode) {
+            case cc.macro.KEY.left:
+                console.log('down left');
+                this.accLeft = false;
+                break;
+            case cc.macro.KEY.right:
+                this.accRight = false;
+                console.log('down right');
+                break;
+        }
+    }
+
+    onKeyDown(event) {
+        switch(event.keyCode) {
+            case cc.macro.KEY.left:
+                console.log('up left');
+                this.accLeft = true;
+                break;
+            case cc.macro.KEY.right:
+                this.accRight = true;
+                console.log('up left');
+                break;
+        }
+    }
 
     setJumpAction() {
         let jumpUp = cc.moveBy(this.jumpDuration, cc.v2(0, this.jumpHeight)).easing(cc.easeCubicActionInOut());
@@ -37,11 +67,32 @@ export default class NewClass extends cc.Component {
     onLoad () {
         // this.setJumpAction 
         this.node.runAction(this.setJumpAction());
+
+        this.accRight = false;
+        this.accLeft = false;
+        this.xSpeed = 0;
+
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
     }
 
     start () {
 
     }
 
-    update (dt) {}
+    update (dt) {
+        if (this.accLeft) {
+            this.xSpeed -= this.accel * dt;
+        } 
+
+        if (this.accRight) {
+            this.xSpeed += this.accel * dt;
+        }
+
+        if (Math.abs(this.xSpeed) > this.maxMovementSpeed) {
+            this.xSpeed = this.maxMovementSpeed * this.xSpeed / Math.abs(this.xSpeed);
+        }
+
+        this.node.x += this.xSpeed * dt;
+    }
 }
