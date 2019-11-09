@@ -18,7 +18,18 @@ export default class Star extends cc.Component {
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {}
+    onCollisionEnter(selfCollider, otherCollider) {
+        if (otherCollider.name  === 'star<CircleCollider>') {
+            this.node.destroy();
+        }
+    }
+
+    onLoad () {
+        let manager = cc.director.getCollisionManager();
+        manager.enabled = true;
+        manager.enabledDebugDraw = true;
+        manager.enabledDrawBoundingBox = true;
+    }
 
     start () {
 

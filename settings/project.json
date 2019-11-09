@@ -5,11 +5,11 @@
   ],
   "collision-matrix": [
     [
-      true,
-      false
+      false,
+      true
     ],
     [
-      false,
+      true,
       false
     ]
   ],

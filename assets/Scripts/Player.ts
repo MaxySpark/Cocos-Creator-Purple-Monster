@@ -65,7 +65,7 @@ export default class Player extends cc.Component {
     }
 
     onLoad () {
-        // this.setJumpAction 
+        
         this.node.runAction(this.setJumpAction());
 
         this.accRight = false;
