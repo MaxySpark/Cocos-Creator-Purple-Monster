@@ -30,6 +30,16 @@ export default class Game extends cc.Component {
     
     groundY: number;
 
+    @property(cc.Label)
+    score: cc.Label = null;
+
+    playerScore: number = 0;
+
+    gameScore() {
+        this.playerScore += 1;
+        this.score.string = `SCORE : ${this.playerScore}`;
+    }
+
 
     spawnNewStart() {
         let newStar = cc.instantiate(this.starPrefab);

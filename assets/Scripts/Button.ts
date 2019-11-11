@@ -11,24 +11,15 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class Star extends cc.Component {
-
-    @property
-    pickRadius: number = 0;
+export default class NewClass extends cc.Component {
 
     // LIFE-CYCLE CALLBACKS:
 
-    onCollisionEnter(selfCollider, otherCollider) {
-        if (otherCollider.name  === 'star<CircleCollider>') {
-            this.node.destroy();
-        }
-    }
-
     onLoad () {
-        let manager = cc.director.getCollisionManager();
-        manager.enabled = true;
-        // manager.enabledDebugDraw = true;
-        // manager.enabledDrawBoundingBox = true;
+        cc.director.preloadScene('Game');
+        this.node.on('touchstart', () => {
+            cc.director.loadScene('Game');
+        });
     }
 
     start () {
@@ -36,9 +27,4 @@ export default class Star extends cc.Component {
     }
 
     // update (dt) {}
-
-    onDestroy() {
-        this.node.parent.getComponent('Game').gameScore();
-        this.node.parent.getComponent('Game').spawnNewStart();
-    }
 }
